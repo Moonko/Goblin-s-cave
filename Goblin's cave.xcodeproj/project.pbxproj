@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CFBB22A31841E4AD006B9DD5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBB22A21841E4AD006B9DD5 /* Foundation.framework */; };
+		CFBB22A51841E4AD006B9DD5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBB22A41841E4AD006B9DD5 /* CoreGraphics.framework */; };
+		CFBB22A71841E4AD006B9DD5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBB22A61841E4AD006B9DD5 /* UIKit.framework */; };
+		CFBB22A91841E4AD006B9DD5 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBB22A81841E4AD006B9DD5 /* SpriteKit.framework */; };
+		CFBB22AF1841E4AD006B9DD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFBB22AD1841E4AD006B9DD5 /* InfoPlist.strings */; };
+		CFBB22B11841E4AD006B9DD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBB22B01841E4AD006B9DD5 /* main.m */; };
+		CFBB22B51841E4AD006B9DD5 /* MKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBB22B41841E4AD006B9DD5 /* MKAppDelegate.m */; };
+		CFBB22B81841E4AD006B9DD5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFBB22B61841E4AD006B9DD5 /* Main.storyboard */; };
+		CFBB22BB1841E4AD006B9DD5 /* MKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBB22BA1841E4AD006B9DD5 /* MKViewController.m */; };
+		CFBB22BE1841E4AD006B9DD5 /* MKMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBB22BD1841E4AD006B9DD5 /* MKMyScene.m */; };
+		CFBB22C01841E4AD006B9DD5 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = CFBB22BF1841E4AD006B9DD5 /* Spaceship.png */; };
+		CFBB22C21841E4AD006B9DD5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFBB22C11841E4AD006B9DD5 /* Images.xcassets */; };
+		CFBB22C91841E4AE006B9DD5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBB22C81841E4AE006B9DD5 /* XCTest.framework */; };
+		CFBB22CA1841E4AE006B9DD5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBB22A21841E4AD006B9DD5 /* Foundation.framework */; };
+		CFBB22CB1841E4AE006B9DD5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBB22A61841E4AD006B9DD5 /* UIKit.framework */; };
+		CFBB22D31841E4AE006B9DD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFBB22D11841E4AE006B9DD5 /* InfoPlist.strings */; };
+		CFBB22D51841E4AE006B9DD5 /* Goblin_s_caveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBB22D41841E4AE006B9DD5 /* Goblin_s_caveTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CFBB22CC1841E4AE006B9DD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFBB22971841E4AD006B9DD5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CFBB229E1841E4AD006B9DD5;
+			remoteInfo = "Goblin's cave";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CFBB229F1841E4AD006B9DD5 /* Goblin's cave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Goblin's cave.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFBB22A21841E4AD006B9DD5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CFBB22A41841E4AD006B9DD5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CFBB22A61841E4AD006B9DD5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CFBB22A81841E4AD006B9DD5 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		CFBB22AC1841E4AD006B9DD5 /* Goblin's cave-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Goblin's cave-Info.plist"; sourceTree = "<group>"; };
+		CFBB22AE1841E4AD006B9DD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CFBB22B01841E4AD006B9DD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CFBB22B21841E4AD006B9DD5 /* Goblin's cave-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Goblin's cave-Prefix.pch"; sourceTree = "<group>"; };
+		CFBB22B31841E4AD006B9DD5 /* MKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKAppDelegate.h; sourceTree = "<group>"; };
+		CFBB22B41841E4AD006B9DD5 /* MKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKAppDelegate.m; sourceTree = "<group>"; };
+		CFBB22B71841E4AD006B9DD5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CFBB22B91841E4AD006B9DD5 /* MKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKViewController.h; sourceTree = "<group>"; };
+		CFBB22BA1841E4AD006B9DD5 /* MKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKViewController.m; sourceTree = "<group>"; };
+		CFBB22BC1841E4AD006B9DD5 /* MKMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKMyScene.h; sourceTree = "<group>"; };
+		CFBB22BD1841E4AD006B9DD5 /* MKMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKMyScene.m; sourceTree = "<group>"; };
+		CFBB22BF1841E4AD006B9DD5 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		CFBB22C11841E4AD006B9DD5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CFBB22C71841E4AE006B9DD5 /* Goblin's caveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Goblin's caveTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFBB22C81841E4AE006B9DD5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		CFBB22D01841E4AE006B9DD5 /* Goblin's caveTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Goblin's caveTests-Info.plist"; sourceTree = "<group>"; };
+		CFBB22D21841E4AE006B9DD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CFBB22D41841E4AE006B9DD5 /* Goblin_s_caveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Goblin_s_caveTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CFBB229C1841E4AD006B9DD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFBB22A51841E4AD006B9DD5 /* CoreGraphics.framework in Frameworks */,
+				CFBB22A71841E4AD006B9DD5 /* UIKit.framework in Frameworks */,
+				CFBB22A91841E4AD006B9DD5 /* SpriteKit.framework in Frameworks */,
+				CFBB22A31841E4AD006B9DD5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFBB22C41841E4AE006B9DD5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFBB22C91841E4AE006B9DD5 /* XCTest.framework in Frameworks */,
+				CFBB22CB1841E4AE006B9DD5 /* UIKit.framework in Frameworks */,
+				CFBB22CA1841E4AE006B9DD5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CFBB22961841E4AD006B9DD5 = {
+			isa = PBXGroup;
+			children = (
+				CFBB22AA1841E4AD006B9DD5 /* Goblin's cave */,
+				CFBB22CE1841E4AE006B9DD5 /* Goblin's caveTests */,
+				CFBB22A11841E4AD006B9DD5 /* Frameworks */,
+				CFBB22A01841E4AD006B9DD5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CFBB22A01841E4AD006B9DD5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFBB229F1841E4AD006B9DD5 /* Goblin's cave.app */,
+				CFBB22C71841E4AE006B9DD5 /* Goblin's caveTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CFBB22A11841E4AD006B9DD5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CFBB22A21841E4AD006B9DD5 /* Foundation.framework */,
+				CFBB22A41841E4AD006B9DD5 /* CoreGraphics.framework */,
+				CFBB22A61841E4AD006B9DD5 /* UIKit.framework */,
+				CFBB22A81841E4AD006B9DD5 /* SpriteKit.framework */,
+				CFBB22C81841E4AE006B9DD5 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CFBB22AA1841E4AD006B9DD5 /* Goblin's cave */ = {
+			isa = PBXGroup;
+			children = (
+				CFBB22B31841E4AD006B9DD5 /* MKAppDelegate.h */,
+				CFBB22B41841E4AD006B9DD5 /* MKAppDelegate.m */,
+				CFBB22B61841E4AD006B9DD5 /* Main.storyboard */,
+				CFBB22B91841E4AD006B9DD5 /* MKViewController.h */,
+				CFBB22BA1841E4AD006B9DD5 /* MKViewController.m */,
+				CFBB22BC1841E4AD006B9DD5 /* MKMyScene.h */,
+				CFBB22BD1841E4AD006B9DD5 /* MKMyScene.m */,
+				CFBB22BF1841E4AD006B9DD5 /* Spaceship.png */,
+				CFBB22C11841E4AD006B9DD5 /* Images.xcassets */,
+				CFBB22AB1841E4AD006B9DD5 /* Supporting Files */,
+			);
+			path = "Goblin's cave";
+			sourceTree = "<group>";
+		};
+		CFBB22AB1841E4AD006B9DD5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CFBB22AC1841E4AD006B9DD5 /* Goblin's cave-Info.plist */,
+				CFBB22AD1841E4AD006B9DD5 /* InfoPlist.strings */,
+				CFBB22B01841E4AD006B9DD5 /* main.m */,
+				CFBB22B21841E4AD006B9DD5 /* Goblin's cave-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CFBB22CE1841E4AE006B9DD5 /* Goblin's caveTests */ = {
+			isa = PBXGroup;
+			children = (
+				CFBB22D41841E4AE006B9DD5 /* Goblin_s_caveTests.m */,
+				CFBB22CF1841E4AE006B9DD5 /* Supporting Files */,
+			);
+			path = "Goblin's caveTests";
+			sourceTree = "<group>";
+		};
+		CFBB22CF1841E4AE006B9DD5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CFBB22D01841E4AE006B9DD5 /* Goblin's caveTests-Info.plist */,
+				CFBB22D11841E4AE006B9DD5 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CFBB229E1841E4AD006B9DD5 /* Goblin's cave */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFBB22D81841E4AE006B9DD5 /* Build configuration list for PBXNativeTarget "Goblin's cave" */;
+			buildPhases = (
+				CFBB229B1841E4AD006B9DD5 /* Sources */,
+				CFBB229C1841E4AD006B9DD5 /* Frameworks */,
+				CFBB229D1841E4AD006B9DD5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Goblin's cave";
+			productName = "Goblin's cave";
+			productReference = CFBB229F1841E4AD006B9DD5 /* Goblin's cave.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CFBB22C61841E4AE006B9DD5 /* Goblin's caveTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFBB22DB1841E4AE006B9DD5 /* Build configuration list for PBXNativeTarget "Goblin's caveTests" */;
+			buildPhases = (
+				CFBB22C31841E4AE006B9DD5 /* Sources */,
+				CFBB22C41841E4AE006B9DD5 /* Frameworks */,
+				CFBB22C51841E4AE006B9DD5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CFBB22CD1841E4AE006B9DD5 /* PBXTargetDependency */,
+			);
+			name = "Goblin's caveTests";
+			productName = "Goblin's caveTests";
+			productReference = CFBB22C71841E4AE006B9DD5 /* Goblin's caveTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CFBB22971841E4AD006B9DD5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MK;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Андрей Рычков";
+				TargetAttributes = {
+					CFBB22C61841E4AE006B9DD5 = {
+						TestTargetID = CFBB229E1841E4AD006B9DD5;
+					};
+				};
+			};
+			buildConfigurationList = CFBB229A1841E4AD006B9DD5 /* Build configuration list for PBXProject "Goblin's cave" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CFBB22961841E4AD006B9DD5;
+			productRefGroup = CFBB22A01841E4AD006B9DD5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CFBB229E1841E4AD006B9DD5 /* Goblin's cave */,
+				CFBB22C61841E4AE006B9DD5 /* Goblin's caveTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CFBB229D1841E4AD006B9DD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFBB22AF1841E4AD006B9DD5 /* InfoPlist.strings in Resources */,
+				CFBB22C21841E4AD006B9DD5 /* Images.xcassets in Resources */,
+				CFBB22C01841E4AD006B9DD5 /* Spaceship.png in Resources */,
+				CFBB22B81841E4AD006B9DD5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFBB22C51841E4AE006B9DD5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFBB22D31841E4AE006B9DD5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CFBB229B1841E4AD006B9DD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFBB22B51841E4AD006B9DD5 /* MKAppDelegate.m in Sources */,
+				CFBB22BB1841E4AD006B9DD5 /* MKViewController.m in Sources */,
+				CFBB22BE1841E4AD006B9DD5 /* MKMyScene.m in Sources */,
+				CFBB22B11841E4AD006B9DD5 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFBB22C31841E4AE006B9DD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFBB22D51841E4AE006B9DD5 /* Goblin_s_caveTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CFBB22CD1841E4AE006B9DD5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CFBB229E1841E4AD006B9DD5 /* Goblin's cave */;
+			targetProxy = CFBB22CC1841E4AE006B9DD5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CFBB22AD1841E4AD006B9DD5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFBB22AE1841E4AD006B9DD5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CFBB22B61841E4AD006B9DD5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFBB22B71841E4AD006B9DD5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CFBB22D11841E4AE006B9DD5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFBB22D21841E4AE006B9DD5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CFBB22D61841E4AE006B9DD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CFBB22D71841E4AE006B9DD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CFBB22D91841E4AE006B9DD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Goblin's cave/Goblin's cave-Prefix.pch";
+				INFOPLIST_FILE = "Goblin's cave/Goblin's cave-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CFBB22DA1841E4AE006B9DD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Goblin's cave/Goblin's cave-Prefix.pch";
+				INFOPLIST_FILE = "Goblin's cave/Goblin's cave-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		CFBB22DC1841E4AE006B9DD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Goblin's cave.app/Goblin's cave";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Goblin's cave/Goblin's cave-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Goblin's caveTests/Goblin's caveTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CFBB22DD1841E4AE006B9DD5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Goblin's cave.app/Goblin's cave";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Goblin's cave/Goblin's cave-Prefix.pch";
+				INFOPLIST_FILE = "Goblin's caveTests/Goblin's caveTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CFBB229A1841E4AD006B9DD5 /* Build configuration list for PBXProject "Goblin's cave" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFBB22D61841E4AE006B9DD5 /* Debug */,
+				CFBB22D71841E4AE006B9DD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFBB22D81841E4AE006B9DD5 /* Build configuration list for PBXNativeTarget "Goblin's cave" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFBB22D91841E4AE006B9DD5 /* Debug */,
+				CFBB22DA1841E4AE006B9DD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CFBB22DB1841E4AE006B9DD5 /* Build configuration list for PBXNativeTarget "Goblin's caveTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFBB22DC1841E4AE006B9DD5 /* Debug */,
+				CFBB22DD1841E4AE006B9DD5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CFBB22971841E4AD006B9DD5 /* Project object */;
+}
