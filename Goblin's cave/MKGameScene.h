@@ -29,6 +29,6 @@ typedef enum : uint8_t
 
 - (void) startLevel;
 
-- (void)setDefaultPlayerHeroType:(MKHeroType)heroType;
+- (void) setDefaultPlayerHeroType:(MKHeroType)heroType;
 
 @end

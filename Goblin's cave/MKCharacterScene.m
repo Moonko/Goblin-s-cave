@@ -31,7 +31,6 @@
         _player = [[MKPlayer alloc] init];
         
         _world = [[SKNode alloc] init];
-        [_world setName:@"world"];
         
         _layers = [NSMutableArray arrayWithCapacity:kWorldLayerCount];
         for (int i = 0; i < kWorldLayerCount; i++)
@@ -44,7 +43,7 @@
         
         [self addChild:_world];
     
-        // [self buildHUD];
+        [self buildHUD];
     }
     
     return self;
@@ -98,28 +97,30 @@
 {
     SKNode *hud = [[SKNode alloc] init];
     
-    SKSpriteNode *avatar = [SKSpriteNode spriteNodeWithColor:[SKColor grayColor]
-                                                        size:CGSizeMake(30, 30)];
+    SKSpriteNode *avatar = [SKSpriteNode spriteNodeWithImageNamed:@"iconWarrior_red"];
     avatar.alpha = 0.5;
+    avatar.scale = 0.8;
+    avatar.anchorPoint = CGPointMake(0, 0);
     avatar.position = CGPointMake(10,
                                   self.frame.size.height - 10 - avatar.size.height);
     [hud addChild:avatar];
-    SKLabelNode *label = [SKLabelNode labelNodeWithFontNamed:@"Copperplate"];
-    label.text = @"1";
-    label.fontSize = 16;
-    [hud addChild:label];
     
     SKLabelNode *score = [SKLabelNode labelNodeWithFontNamed:@"Copperplate"];
-    score.text = @"Score";
+    score.text = @"Score : 0";
     score.fontSize = 16;
+    score.position = CGPointMake(avatar.position.x + avatar.size.width + 40, avatar.position.y + 20);
     [hud addChild:score];
     
-    SKSpriteNode *heart = [SKSpriteNode spriteNodeWithColor:[SKColor redColor]
-                                                       size:CGSizeMake(10, 10)];
-    heart.position = CGPointMake(10,
-                                 self.frame.size.height - 10 - avatar.size.height);
-    heart.alpha = 0.1;
-    [hud addChild:heart];
+    for (int i = 0; i < 3; ++i)
+    {
+        SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"lives.png"];
+        heart.anchorPoint = CGPointMake(0, 0);
+        heart.scale = 0.6;
+        heart.position = CGPointMake(avatar.position.x + avatar.size.width + (10 + heart.size.width) * i,
+                                     avatar.position.y + avatar.size.height / 2 - 10);
+        heart.alpha = 0.1;
+        [hud addChild:heart];
+    }
     
     [self addChild:hud];
 }
@@ -150,7 +151,7 @@
     return NO;
 }
 
-- (void) addToScore:(uint32_t)amount afterEnemyKillWithProjectile:(SKNode *)projectile
+- (void) addToScore:(uint32_t)amount
 {
     self.player.score += amount;
 }
@@ -195,31 +196,6 @@
     {
         return;
     }
-    CGPoint heroMoveDirection = _player.heroMoveDirection;
-    if (hypotf(heroMoveDirection.x, heroMoveDirection.y) > 0.0f)
-    {
-        [_player.hero moveInDirection:heroMoveDirection
-                     withTimeInterval:timeSinceLast];
-    } else
-    {
-        if (_player.moveForward)
-        {
-            [_player.hero move:MKMoveDirectionForward
-              withTimeInterval:timeSinceLast];
-        } else if (_player.moveBack)
-        {
-            [_player.hero move:MKMoveDirectionBack
-              withTimeInterval:timeSinceLast];
-        } else if (_player.moveLeft)
-        {
-            [_player.hero move:MKMoveDirectionLeft
-              withTimeInterval:timeSinceLast];
-        } else if (_player.moveRight)
-        {
-            [_player.hero move:MKMoveDirectionRight
-              withTimeInterval:timeSinceLast];
-        }
-    }
     if (_player.fireAction)
     {
         [_player.hero performAttackAction];
@@ -238,6 +214,7 @@
     {
         CGPoint heroPostion = _player.hero.position;
         CGPoint worldPos = self.world.position;
+        
         CGFloat yCoordinate = worldPos.y + heroPostion.y;
         if (yCoordinate < 256)
         {
@@ -287,10 +264,12 @@
     NSArray *nodes = [self nodesAtPoint:[touch locationInNode:self]];
     for (SKNode *node in nodes)
     {
-        if (node.physicsBody.categoryBitMask & (MKColliderTypeCave | MKColliderTypeGoblinOrBoss))
+        if (node.physicsBody.categoryBitMask &
+            (MKColliderTypeCave | MKColliderTypeGoblinOrBoss))
         {
             wantsAttack = YES;
         }
+
     }
     _player.fireAction = wantsAttack;
     _player.moveRequested = !wantsAttack;
@@ -326,7 +305,6 @@
 + (void)loadSceneAssetsWithCompletionHandler:(MKAssetLoadCompletionHandler)handler
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        
         [self loadSceneAssets];
         
         if (!handler)
@@ -339,6 +317,7 @@
         });
     });
 }
+
 
 + (void)loadSceneAssets
 {

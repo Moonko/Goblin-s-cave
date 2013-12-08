@@ -15,13 +15,7 @@
 @property (nonatomic) MKHeroCharacter *hero;
 @property (nonatomic) Class heroClass;
 
-@property (nonatomic) BOOL moveForward;
-@property (nonatomic) BOOL moveBack;
-@property (nonatomic) BOOL moveRight;
-@property (nonatomic) BOOL moveLeft;
 @property (nonatomic) BOOL fireAction;
-
-@property (nonatomic) CGPoint heroMoveDirection;
 
 @property (nonatomic) uint8_t livesLeft;
 @property (nonatomic) uint32_t score;

@@ -182,35 +182,6 @@
 
 #pragma mark - Orientation
 
-- (void) move:(MKMoveDirection)direction withTimeInterval:(NSTimeInterval)timeInterval
-{
-    CGFloat rot = self.zRotation;
-    
-    SKAction *action = nil;
-    
-    switch (direction)
-    {
-        case MKMoveDirectionForward:
-            action = [SKAction moveByX:-sinf(rot)*self.movementSpeed*timeInterval
-                                     y:cosf(rot)*self.movementSpeed*timeInterval
-                              duration:timeInterval];
-            break;
-        case MKMoveDirectionBack:
-            action = [SKAction moveByX:sinf(rot)*self.movementSpeed*timeInterval
-                                     y:-cosf(rot)*self.movementSpeed*timeInterval
-                              duration:timeInterval];
-            break;
-        case MKMoveDirectionLeft:
-            action = [SKAction rotateByAngle:kRotationSpeed
-                                    duration:timeInterval];
-            break;
-        case MKMoveDirectionRight:
-            action = [SKAction rotateByAngle:-kRotationSpeed
-                                    duration:timeInterval];
-    }
-    [self runAction:action];
-}
-
 - (CGFloat)faceTo:(CGPoint)position
 {
     CGFloat ang = MK_POLAR_ADJUST(MKRadiansBetweenPoints(position, self.position));
@@ -238,31 +209,6 @@
     {
         self.position = CGPointMake(currentPosition.x - sinf(ang) * dt,
                                     currentPosition.y + cosf(ang) * dt);
-    }
-}
-
-- (void)moveInDirection:(CGPoint)direction
-       withTimeInterval:(NSTimeInterval)timeInterval
-{
-    CGPoint currentPosition = self.position;
-    CGFloat movementSpeed = self.movementSpeed;
-    CGFloat dx = movementSpeed * direction.x;
-    CGFloat dy = movementSpeed * direction.y;
-    CGFloat dt = movementSpeed * timeInterval;
-    
-    CGPoint targetPosition = CGPointMake(currentPosition.x + dx, currentPosition.y + dy);
-    
-    CGFloat ang = MK_POLAR_ADJUST(MKRadiansBetweenPoints(targetPosition, currentPosition));
-    self.zRotation = ang;
-    
-    CGFloat distRemaining = hypotf(dx, dy);
-    if (distRemaining < dt)
-    {
-        self.position = targetPosition;
-    } else
-    {
-        self.position = CGPointMake(currentPosition.x - sinf(ang)*dt,
-                                    currentPosition.y + cosf(ang)*dt);
     }
 }
 

@@ -107,8 +107,7 @@
                              fromProjectile:other.node];
             if (killed)
             {
-                [[self characterScene] addToScore:25
-                     afterEnemyKillWithProjectile:other.node];
+                [[self characterScene] addToScore:25];
             }
         }
     }

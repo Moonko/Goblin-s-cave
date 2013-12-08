@@ -54,6 +54,6 @@ typedef void (^MKAssetLoadCompletionHandler)(void);
 - (float)distanceToWall:(CGPoint)pos0 from:(CGPoint)pos1;
 - (BOOL)canSee:(CGPoint)pos0 from:(CGPoint)pos1;
 
-- (void)addToScore:(uint32_t)amount afterEnemyKillWithProjectile:(SKNode *)projectile;
+- (void)addToScore:(uint32_t)amount;
 
 @end

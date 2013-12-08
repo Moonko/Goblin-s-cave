@@ -19,7 +19,7 @@
 
 @interface MKGameScene () <SKPhysicsContactDelegate>
 
-@property (nonatomic, readwrite) NSMutableArray *goblinCaves;
+@property (nonatomic) NSMutableArray *goblinCaves;
 
 @property (nonatomic) MKDataMapRef levelMap;
 @property (nonatomic) MKTreeMapRef treeMap;
@@ -27,7 +27,6 @@
 @property (nonatomic) MKBoss *levelBoss;
 
 @property (nonatomic) NSMutableArray *particleSystem;
-
 @property (nonatomic) NSMutableArray *trees;
 
 @end
@@ -62,6 +61,8 @@
 
 - (void) buildWorld
 {
+    NSLog(@"Building the world");
+    
     self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
     self.physicsWorld.contactDelegate = self;
     
@@ -69,9 +70,10 @@
     
     [self addSpawnPoints];
     
-    [self addTrees];
-   
     [self addCollisionWalls];
+    
+    [self addTrees];
+    
 }
 
 - (void) addBackgroundTiles
@@ -369,16 +371,16 @@
     }
 }
 
-- (void) didBeginContact:(SKPhysicsContact *)contact
+- (void)didBeginContact:(SKPhysicsContact *)contact
 {
     SKNode *node = contact.bodyA.node;
     if ([node isKindOfClass:[MKCharacter class]])
     {
         [(MKCharacter *)node collideWith:contact.bodyB];
     }
+    
     node = contact.bodyB.node;
-    if ([node isKindOfClass:[MKCharacter class]])
-    {
+    if ([node isKindOfClass:[MKCharacter class]]) {
         [(MKCharacter *)node collideWith:contact.bodyA];
     }
     
@@ -387,11 +389,12 @@
     {
         SKNode *projectile = (contact.bodyA.categoryBitMask & MKColliderTypeProjectile) ?
         contact.bodyA.node : contact.bodyB.node;
+        
         [projectile runAction:[SKAction removeFromParent]];
         
         SKEmitterNode *emitter = [[self sharedProjectileSparkEmitter] copy];
-        [self addNode:emitter
-          atWorlLayer:MKWorldLayerAboveCharacter];
+        [self addNode:emitter atWorlLayer:MKWorldLayerAboveCharacter];
+        emitter.position = projectile.position;
         MKRunOneShotEmitter(emitter, 0.15f);
     }
 }
@@ -492,18 +495,10 @@
     sSharedSpawnEmitter = [SKEmitterNode mk_emitterNodeWithEmitterNamed:@"Spawn"];
     sSharedSmallTree = [[MKTree alloc] initWithSprites:@[
                                                          [SKSpriteNode spriteNodeWithTexture:
-                                                          [atlas textureNamed:@"small_tree_base.png"]],
-                                                         [SKSpriteNode spriteNodeWithTexture:
-                                                          [atlas textureNamed:@"small_tree_middle.png"]],
-                                                         [SKSpriteNode spriteNodeWithTexture:
-                                                          [atlas textureNamed:@"small_tree_top.png"]]]];
+                                                          [atlas textureNamed:@"small_tree_base.png"]]]];
     sSharedBigTree = [[MKTree alloc] initWithSprites:@[
                                                        [SKSpriteNode spriteNodeWithTexture:
-                                                        [atlas textureNamed:@"big_tree_base.png"]],
-                                                       [SKSpriteNode spriteNodeWithTexture:
-                                                        [atlas textureNamed:@"big_tree_middle.png"]],
-                                                       [SKSpriteNode spriteNodeWithTexture:
-                                                        [atlas textureNamed:@"big_tree_top.png"]]]];
+                                                        [atlas textureNamed:@"big_tree_base.png"]]]];
     sSharedBigTree.fadeAlpha = YES;
     
     [self loadWorldTiles];
@@ -515,7 +510,7 @@
     [MKBoss loadSharedAssets];
 }
 
-+ (void) loadWorldTiles
++ (void)loadWorldTiles
 {
     NSLog(@"Loading world tiles");
     NSDate *startDate = [NSDate date];
@@ -527,10 +522,10 @@
     {
         for (int x = 0; x < kWorldTileDivisor; x++)
         {
-            int tileNumber = ( y * kWorldTileDivisor) + x;
-            SKSpriteNode *tileNode =
-            [SKSpriteNode spriteNodeWithTexture:
-             [tileAtlas textureNamed:[NSString stringWithFormat:@"tile%d.png", tileNumber]]];
+            int tileNumber = (y * kWorldTileDivisor) + x;
+            SKSpriteNode *tileNode = [SKSpriteNode spriteNodeWithTexture:
+                                      [tileAtlas textureNamed:
+                                       [NSString stringWithFormat:@"tile%d.png", tileNumber]]];
             CGPoint position = CGPointMake((x * kWorldTileSize) - kWorldCenter,
                                            (kWorldSize - (y * kWorldTileSize)) - kWorldCenter);
             tileNode.position = position;

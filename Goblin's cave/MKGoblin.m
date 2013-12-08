@@ -79,7 +79,7 @@
         BOOL killed = [self applyDamage:damage fromProjectile:other.node];
         if (killed)
         {
-            [[self characterScene] addToScore:10 afterEnemyKillWithProjectile:other.node];
+            [[self characterScene] addToScore:10];
         }
     }
 }

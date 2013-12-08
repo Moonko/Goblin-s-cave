@@ -6,15 +6,6 @@
 //  Copyright (c) 2013 Андрей Рычков. All rights reserved.
 //
 
-// Used by the move: method to move a character in a given direction.
-typedef enum : uint8_t
-{
-    MKMoveDirectionForward = 0,
-    MKMoveDirectionLeft,
-    MKMoveDirectionRight,
-    MKMoveDirectionBack,
-} MKMoveDirection;
-
 // Bitmask for the different entities with physics bodies.
 typedef enum : uint8_t
 {
@@ -60,10 +51,8 @@ typedef enum : uint8_t
 
 - (void) updateWithTimeSinceLastUpdate:(CFTimeInterval)interval;
 
-- (void) move:(MKMoveDirection)direction withTimeInterval:(NSTimeInterval)timeInterval;
 - (CGFloat) faceTo:(CGPoint)position;
 - (void) moveTowards:(CGPoint)position withTimeInterval:(NSTimeInterval)timeInterval;
-- (void) moveInDirection:(CGPoint)direction withTimeInterval:(NSTimeInterval)timeInterval;
 - (void) performAttackAction;
 
 - (void) addToScene:(MKCharacterScene *)scene;
