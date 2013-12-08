@@ -29,8 +29,8 @@
 
 - (id) initAtPosition:(CGPoint)position
 {
-    self = [super initWithSprites:@[[[self caveBase] copy], [[self  caveTop] copy]]
-                                    atPosition:position];
+    self = [super initWithTexture:[SKTexture textureWithImageNamed:@"cave_base.png"]
+                       atPosition:position];
     if (self)
     {
         _timeUntilNextGenerate = 5.0f + (MK_RANDOM_0_1() * 5.0f);
@@ -278,14 +278,11 @@ static int sGlobalAllocation = 0;
         
         sSharedCaveBase = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"cave_base.png"]];
         
-        // Add two torches either side of the entrance.
         torch.position = CGPointMake(83, 83);
         [sSharedCaveBase addChild:torch];
         SKNode *torchB = [torch copy];
         torchB.position = CGPointMake(-83, 83);
         [sSharedCaveBase addChild:torchB];
-        
-        sSharedCaveTop = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"cave_top.png"]];
         
         sSharedDeathSplort = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"cave_destroyed.png"]];
         
@@ -306,12 +303,6 @@ static SKNode *sSharedCaveBase = nil;
 - (SKNode *)caveBase
 {
     return sSharedCaveBase;
-}
-
-static SKNode *sSharedCaveTop = nil;
-- (SKNode *)caveTop
-{
-    return sSharedCaveTop;
 }
 
 static SKSpriteNode *sSharedDeathSplort = nil;

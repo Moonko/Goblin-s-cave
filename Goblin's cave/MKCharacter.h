@@ -38,8 +38,6 @@ typedef enum : uint8_t
 
 - (id) initWithTexture:(SKTexture *)texture atPosition:(CGPoint)position;
 
-- (id) initWithSprites:(NSArray *)sprites atPosition:(CGPoint)position;
-
 - (void) reset;
 
 - (void) collideWith:(SKPhysicsBody *)other;
