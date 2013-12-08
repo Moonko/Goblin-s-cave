@@ -7,25 +7,59 @@
 //
 
 #import "MKViewController.h"
-#import "MKMyScene.h"
+#import "MKGameScene.h"
+
+@interface MKViewController ()
+
+@property (nonatomic) IBOutlet SKView *skView;
+@property (nonatomic) IBOutlet UIActivityIndicatorView *progressIndicator;
+@property (nonatomic) IBOutlet UIButton *warriorButton;
+@property (nonatomic) IBOutlet UIButton *archerButton;
+@property (nonatomic) MKGameScene *scene;
+
+@end
 
 @implementation MKViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+#pragma mark - Application's lifecycle
 
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
-    
-    // Create and configure the scene.
-    SKScene * scene = [MKMyScene sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
+- (void) viewWillAppear:(BOOL)animated
+{
+    [self.progressIndicator startAnimating];
+    [MKGameScene loadSceneAssetsWithCompletionHandler:^
+     {
+         CGSize viewSize = self.view.bounds.size;
+         
+         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+         {
+             viewSize.height *= 2;
+             viewSize.width *= 2;
+         }
+         
+         MKGameScene *scene = [[MKGameScene alloc] initWithSize:viewSize];
+         scene.scaleMode = SKSceneScaleModeAspectFill;
+         self.scene = scene;
+         
+         [self.progressIndicator stopAnimating];
+         [self.progressIndicator setHidden:YES];
+         
+         [self.skView presentScene:scene];
+         
+         self.skView.showsFPS = YES;
+         self.skView.showsNodeCount = YES;
+         [UIView animateWithDuration:2.0
+                               delay:0.0
+                             options:UIViewAnimationOptionCurveEaseInOut
+                          animations:^{
+             self.archerButton.alpha = 1.0f;
+             self.warriorButton.alpha = 1.0f;
+         } completion:NULL];
+     }];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (BOOL)shouldAutorotate
@@ -35,17 +69,49 @@
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    } else {
-        return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+#pragma mark - UI Display And Actions
+
+- (void) hideUIElements:(BOOL)shouldHide animated:(BOOL)shouldAnimate
+{
+    CGFloat alpha = shouldHide ? 0.0f : 1.0f;
+    
+    if (shouldAnimate)
+    {
+        [UIView animateWithDuration:2.0
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+                             self.archerButton.alpha = alpha;
+                             self.warriorButton.alpha = alpha;
+                         }completion:NULL];
+    } else
+    {
+        [self.warriorButton setAlpha:alpha];
+        [self.archerButton setAlpha:alpha];
     }
 }
 
-- (void)didReceiveMemoryWarning
+- (IBAction)chooseWarrior:(id)sender
 {
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
+    [self startGameWithHeroType:MKHeroTypeWarrior];
+}
+
+- (IBAction)chooseArcher:(id)sender
+{
+    [self startGameWithHeroType:MKHeroTypeArcher];
+}
+
+#pragma mark - Starting the game
+
+-(void)startGameWithHeroType:(MKHeroType)type
+{
+    [self hideUIElements:YES
+                animated:YES];
+    [self.scene setDefaultPlayerHeroType:type];
+    [self.scene startLevel];
 }
 
 @end
