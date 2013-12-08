@@ -52,7 +52,6 @@ typedef void (^MKAssetLoadCompletionHandler)(void);
 - (void)centerWorldOnCharacter;
 - (void)centerWorldOnPosition:(CGPoint)position;
 - (float)distanceToWall:(CGPoint)pos0 from:(CGPoint)pos1;
-- (BOOL)canSee:(CGPoint)pos0 from:(CGPoint)pos1;
 
 - (void)addToScore:(uint32_t)amount;
 

@@ -437,31 +437,6 @@
     return MAXFLOAT;
 }
 
-- (BOOL) canSee:(CGPoint)pos0 from:(CGPoint)pos1
-{
-    CGPoint a = [self convertWorldPointToLevelMapPoint:pos0];
-    CGPoint b = [self convertWorldPointToLevelMapPoint:pos1];
-    
-    CGFloat deltaX = b.x - a.x;
-    CGFloat deltaY = b.y - a.y;
-    CGFloat dist = MKDistanceBetweenPoints(a, b);
-    CGFloat inc = 1.0 / dist;
-    CGPoint p = CGPointZero;
-    
-    for (CGFloat i = 0; i <= 1; i+= inc)
-    {
-        p.x = a.x + i * deltaX;
-        p.y = a.y + i * deltaY;
-        
-        MKDataMap point = [self queryLevelMap:p];
-        if (point.wall > 200)
-        {
-            return NO;
-        }
-    }
-    return YES;
-}
-
 #pragma mark - Point conversion
 
 - (CGPoint) convertLevelMapPointToWorldPoint:(CGPoint)location
@@ -527,7 +502,7 @@
                                       [tileAtlas textureNamed:
                                        [NSString stringWithFormat:@"tile%d.png", tileNumber]]];
             CGPoint position = CGPointMake((x * kWorldTileSize) - kWorldCenter,
-                                           (kWorldSize - (y * kWorldTileSize)) - kWorldCenter);
+                                           -kWorldSize - (y * kWorldTileSize) + kWorldCenter - kWorldTileSize);
             tileNode.position = position;
             tileNode.zPosition = -1.0f;
             tileNode.blendMode = SKBlendModeReplace;

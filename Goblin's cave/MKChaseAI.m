@@ -31,20 +31,21 @@
 
 #pragma mark - Loop update
 
-- (void) updateWithTimeSinceLastUpdate:(CFTimeInterval)timeInterval
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval
 {
-    MKCharacter *character = self.character;
-    if (character.dying)
+    if (self.character.dying)
     {
         self.target = nil;
         return;
     }
-    CGPoint position = character.position;
-    MKCharacterScene *scene = [character characterScene];
+    
+    CGPoint position = self.character.position;
+    
+    MKCharacterScene *scene = [self.character characterScene];
+    
     CGFloat closestHeroDistance = MAXFLOAT;
     
-    CGFloat distance = MKDistanceBetweenPoints(position,
-                                               scene.player.hero.position);
+    CGFloat distance = MKDistanceBetweenPoints(position, scene.player.hero.position);
     if (distance < kEnemyAlertRadius && distance < closestHeroDistance && !scene.player.hero.dying)
     {
         closestHeroDistance = distance;
@@ -65,12 +66,12 @@
         self.target = nil;
     } else if (closestHeroDistance > chaseRadius)
     {
-        [self.character moveTowards:heroPosition
-                   withTimeInterval:timeInterval];
+        [self.character moveTowards:heroPosition withTimeInterval:interval];
     } else if (closestHeroDistance < chaseRadius)
     {
         [self.character faceTo:heroPosition];
         [self.character performAttackAction];
     }
 }
+
 @end

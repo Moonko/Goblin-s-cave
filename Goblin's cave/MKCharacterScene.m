@@ -146,11 +146,6 @@
     return 0.0f;
 }
 
-- (BOOL)canSee:(CGPoint)pos0 from:(CGPoint)pos1
-{
-    return NO;
-}
-
 - (void) addToScore:(uint32_t)amount
 {
     self.player.score += amount;

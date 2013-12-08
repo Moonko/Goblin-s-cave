@@ -10,16 +10,17 @@
 #import "MKCave.h"
 #import "MKCharacterScene.h"
 #import "MKUtilites.h"
+#import "MKPlayer.h"
+#import "MKHeroCharacter.h"
 
 #define kMinimumHeroDistance 2048
 
 @implementation MKSpawnAI
 
 #pragma mark - Loop update
-
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeInterval
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval
 {
-  /*  MKCave *cave = (id)self.character;
+    MKCave *cave = (id)self.character;
     
     if (cave.health <= 0.0f)
     {
@@ -32,30 +33,29 @@
     CGPoint closestHeroPosition = CGPointZero;
     
     CGPoint cavePosition = cave.position;
-    CGFloat distance = MKDistanceBetweenPoints(cavePosition,
-                                               scene.hero.position);
+    
+    CGPoint heroPosition = scene.player.hero.position;
+    CGFloat distance = MKDistanceBetweenPoints(cavePosition, heroPosition);
     if (distance < closestHeroDistance)
     {
         closestHeroDistance = distance;
-        closestHeroPosition = scene.hero.position;
+        closestHeroPosition = heroPosition;
     }
     
     CGFloat distScale = (closestHeroDistance / kMinimumHeroDistance);
-    
-    cave.timeUntilNextGenerate -= timeInterval;
+
+    cave.timeUntilNextGenerate -= interval;
     
     NSUInteger goblinCount = [cave.activeGoblins count];
-    if (goblinCount < 1 || cave.timeUntilNextGenerate <= 0.0f || (distScale < 0.35f && cave.timeUntilNextGenerate > 5.0f))
+    if (goblinCount < 1 || cave.timeUntilNextGenerate <= 0.0f ||
+        (distScale < 0.35f && cave.timeUntilNextGenerate > 5.0f))
     {
         if (goblinCount < 1 || (goblinCount < 4 &&
-                                !CGPointEqualToPoint(closestHeroPosition, CGPointZero) &&
-                                [scene canSee:closestHeroPosition
-                                         from:cavePosition]))
-            {
-                [cave generate];
-            }
-            cave.timeUntilNextGenerate = (4.0f * distScale);
-    } */
+                                !CGPointEqualToPoint(closestHeroPosition, CGPointZero)))
+        {
+            [cave generate];
+        }
+        cave.timeUntilNextGenerate = (4.0f * distScale);
+    }
 }
-
 @end
