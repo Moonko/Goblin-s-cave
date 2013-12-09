@@ -7,7 +7,6 @@
 //
 
 #import "MKCharacterScene.h"
-#import "MKPlayer.h"
 #import "MKHeroCharacter.h"
 #import "MKUtilites.h"
 
@@ -28,7 +27,7 @@
     self  = [super initWithSize:size];
     if (self)
     {
-        _player = [[MKPlayer alloc] init];
+        _hero = [[MKHeroCharacter alloc] init];
         
         _world = [[SKNode alloc] init];
         
@@ -51,15 +50,15 @@
 
 - (MKHeroCharacter *)addhero
 {
-    if (_player.hero && !_player.hero.dying)
+    if (_hero && !_hero.dying)
     {
-        [_player.hero removeFromParent];
+        [_hero removeFromParent];
     }
     
     CGPoint spawnPos = self.defaultSpawnPoint;
     
-    MKHeroCharacter *hero = [[_player.heroClass alloc] initAtPosition:spawnPos];
-    if (hero)
+    _hero = [[self.hero.heroClass alloc] initAtPosition:spawnPos];
+    if (_hero)
     {
         SKEmitterNode *emitter = [[self sharedSpawnEmitter] copy];
         emitter.position = spawnPos;
@@ -67,19 +66,18 @@
           atWorlLayer:MKWorldLayerAboveCharacter];
         MKRunOneShotEmitter(emitter, 0.15f);
         
-        [hero fadeIn:2.0f];
-        [hero addToScene:self];
+        [_hero fadeIn:2.0f];
+        [_hero addToScene:self];
     }
-    _player.hero = hero;
     
-    return hero;
+    return _hero;
 }
 
 - (void)heroWasKilled
 {
-    _player.moveRequested = NO;
+    _hero.moveRequested = NO;
     
-    if (--_player.livesLeft < 1)
+    if (--_hero.livesLeft < 1)
     {
         return;
     }
@@ -132,12 +130,11 @@
     [self.world setPosition:CGPointMake(-(position.x) + CGRectGetMidX(self.frame),
                                         -(position.y) + CGRectGetMidY(self.frame))];
     
-    self.worldMovedForUpdate = YES;
 }
 
 - (void)centerWorldOnCharacter
 {
-    [self centerWorldOnPosition:_player.hero.position];
+    [self centerWorldOnPosition:_hero.position];
 }
 
 
@@ -148,7 +145,7 @@
 
 - (void) addToScore:(uint32_t)amount
 {
-    self.player.score += amount;
+    self.hero.score += amount;
 }
 
 #pragma mark - Loop update
@@ -161,39 +158,38 @@
     {
         timeSinceLast = kMinTimeInterval;
         self.lastTimeUpdateInterval = currentTime;
-        self.worldMovedForUpdate = YES;
     }
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
 
-    if (![_player.hero isDying])
+    if (![_hero isDying])
     {
-        if (!CGPointEqualToPoint(_player.targetLocation, CGPointZero))
+        if (!CGPointEqualToPoint(_hero.targetLocation, CGPointZero))
         {
-            if (_player.fireAction)
+            if (_hero.fireAction)
             {
-                [_player.hero faceTo:_player.targetLocation];
+                [_hero faceTo:_hero.targetLocation];
             }
-            if (_player.moveRequested)
+            if (_hero.moveRequested)
             {
-                if (!CGPointEqualToPoint(_player.targetLocation, _player.hero.position))
+                if (!CGPointEqualToPoint(_hero.targetLocation, _hero.position))
                 {
-                    [_player.hero moveTowards:_player.targetLocation
+                    [_hero moveTowards:_hero.targetLocation
                              withTimeInterval:timeSinceLast];
                 } else
                 {
-                    _player.moveRequested = NO;
+                    _hero.moveRequested = NO;
                 }
             }
         }
     }
     
-    if (!_player.hero || [_player.hero isDying])
+    if (!_hero || [_hero isDying])
     {
         return;
     }
-    if (_player.fireAction)
+    if (_hero.fireAction)
     {
-        [_player.hero performAttackAction];
+        [_hero performAttackAction];
     }
 }
 
@@ -205,43 +201,31 @@
 - (void) didSimulatePhysics
 {
     
-    if (_player.hero)
+    if (_hero)
     {
-        CGPoint heroPostion = _player.hero.position;
+        CGPoint heroPostion = _hero.position;
         CGPoint worldPos = self.world.position;
         
         CGFloat yCoordinate = worldPos.y + heroPostion.y;
         if (yCoordinate < 256)
         {
             worldPos.y = worldPos.y - yCoordinate + 256;
-            _worldMovedForUpdate = YES;
         } else if (yCoordinate > self.frame.size.height - 256)
         {
             worldPos.y = worldPos.y + (self.frame.size.height - yCoordinate) - 256;
-            _worldMovedForUpdate = YES;
         }
         
         CGFloat xCoordinate = worldPos.x + heroPostion.x;
         if (xCoordinate < 256)
         {
             worldPos.x = worldPos.x - xCoordinate + 256;
-            _worldMovedForUpdate = YES;
         } else if (xCoordinate > self.frame.size.width - 256)
         {
             worldPos.x = worldPos.x + (self.frame.size.width - xCoordinate) - 256;
-            _worldMovedForUpdate = YES;
         }
         
         self.world.position = worldPos;
     }
-    [self performSelector:@selector(clearWorldMoved)
-               withObject:nil
-               afterDelay:0.0f];
-}
-
-- (void) clearWorldMoved
-{
-    self.worldMovedForUpdate = NO;
 }
 
 #pragma mark - Event handling
@@ -250,11 +234,11 @@
 {
     UITouch *touch = [touches anyObject];
     
-    if (_player.movementTouch)
+    if (_hero.movementTouch)
     {
         return;
     }
-    _player.targetLocation = [touch locationInNode:_player.hero.parent];
+    _hero.targetLocation = [touch locationInNode:_hero.parent];
     BOOL wantsAttack = NO;
     NSArray *nodes = [self nodesAtPoint:[touch locationInNode:self]];
     for (SKNode *node in nodes)
@@ -266,32 +250,32 @@
         }
 
     }
-    _player.fireAction = wantsAttack;
-    _player.moveRequested = !wantsAttack;
-    _player.movementTouch = touch;
+    _hero.fireAction = wantsAttack;
+    _hero.moveRequested = !wantsAttack;
+    _hero.movementTouch = touch;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = _player.movementTouch;
+    UITouch *touch = _hero.movementTouch;
     if ([touches containsObject:touch])
     {
-        _player.targetLocation = [touch locationInNode:_player.hero.parent];
-        if (!_player.fireAction)
+        _hero.targetLocation = [touch locationInNode:_hero.parent];
+        if (!_hero.fireAction)
         {
-            _player.moveRequested = YES;
+            _hero.moveRequested = YES;
         }
     }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    UITouch *touch = _player.movementTouch;
+    UITouch *touch = _hero.movementTouch;
     
     if ([touches containsObject:touch])
     {
-        _player.movementTouch = nil;
-        _player.fireAction = NO;
+        _hero.movementTouch = nil;
+        _hero.fireAction = NO;
     }
 }
 

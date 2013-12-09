@@ -8,11 +8,22 @@
 
 #import "MKEnemyCharacter.h"
 
-@class MKPlayer;
+#define kStartLives 3
 
 @interface MKHeroCharacter : MKCharacter
 
-@property (nonatomic, weak) MKPlayer *player;
+@property (nonatomic) Class heroClass;
+
+@property (nonatomic) BOOL fireAction;
+
+@property (nonatomic) CGPoint heroMoveDirection;
+
+@property (nonatomic) uint8_t livesLeft;
+@property (nonatomic) uint32_t score;
+
+@property (nonatomic) UITouch *movementTouch;
+@property (nonatomic) CGPoint targetLocation;
+@property (nonatomic) BOOL moveRequested;
 
 - (id) initWithTexture:(SKTexture *)texture atPosition:(CGPoint)position;
 

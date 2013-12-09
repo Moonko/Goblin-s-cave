@@ -23,14 +23,13 @@ typedef enum : uint8_t
 
 typedef void (^MKAssetLoadCompletionHandler)(void);
 
-@class MKPlayer, MKHeroCharacter, MKCharacter;
+@class MKHeroCharacter, MKCharacter;
 
 @interface MKCharacterScene : SKScene
 
-@property (nonatomic, readonly) MKPlayer *player;
+@property (nonatomic, readonly) MKHeroCharacter *hero;
 
 @property (nonatomic) SKNode *world;
-@property (nonatomic) BOOL worldMovedForUpdate;
 
 @property (nonatomic) CGPoint defaultSpawnPoint;
 

@@ -9,7 +9,6 @@
 #import "MKChaseAI.h"
 #import "MKCharacter.h"
 #import "MKUtilites.h"
-#import "MKPlayer.h"
 #import "MKCharacterScene.h"
 #import "MKHeroCharacter.h"
 
@@ -45,11 +44,11 @@
     
     CGFloat closestHeroDistance = MAXFLOAT;
     
-    CGFloat distance = MKDistanceBetweenPoints(position, scene.player.hero.position);
-    if (distance < kEnemyAlertRadius && distance < closestHeroDistance && !scene.player.hero.dying)
+    CGFloat distance = MKDistanceBetweenPoints(position, scene.hero.position);
+    if (distance < kEnemyAlertRadius && distance < closestHeroDistance && !scene.hero.dying)
     {
         closestHeroDistance = distance;
-        self.target = scene.player.hero;
+        self.target = scene.hero;
     }
     
     MKCharacter *target = self.target;

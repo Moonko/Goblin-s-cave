@@ -17,6 +17,6 @@
 
 - (void) clearTarget:(MKCharacter *)target;
 
-- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeInterval;
+- (void) updateWithTimeSinceLastUpdate:(CFTimeInterval)timeInterval;
 
 @end

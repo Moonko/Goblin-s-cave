@@ -10,7 +10,6 @@
 #import "MKCave.h"
 #import "MKCharacterScene.h"
 #import "MKUtilites.h"
-#import "MKPlayer.h"
 #import "MKHeroCharacter.h"
 
 #define kMinimumHeroDistance 2048
@@ -34,7 +33,7 @@
     
     CGPoint cavePosition = cave.position;
     
-    CGPoint heroPosition = scene.player.hero.position;
+    CGPoint heroPosition = scene.hero.position;
     CGFloat distance = MKDistanceBetweenPoints(cavePosition, heroPosition);
     if (distance < closestHeroDistance)
     {

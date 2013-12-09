@@ -15,7 +15,6 @@
 #import "MKBoss.h"
 #import "MKCave.h"
 #import "MKGoblin.h"
-#import "MKPlayer.h"
 
 @interface MKGameScene () <SKPhysicsContactDelegate>
 
@@ -73,7 +72,6 @@
     [self addCollisionWalls];
     
     [self addTrees];
-    
 }
 
 - (void) addBackgroundTiles
@@ -304,10 +302,10 @@
     switch (heroType)
     {
         case MKHeroTypeArcher:
-            self.player.heroClass = [MKArcher class];
+            self.hero.heroClass = [MKArcher class];
             break;
         case MKHeroTypeWarrior:
-            self.player.heroClass = [MKWarrior class];
+            self.hero.heroClass = [MKWarrior class];
             break;
     }
 }
@@ -316,7 +314,7 @@
 {
     for (MKCave *cave in self.goblinCaves)
     {
-        [cave stopGoblinsFromTargettingHero:self.player.hero];
+        [cave stopGoblinsFromTargettingHero:self.hero];
     }
     [super heroWasKilled];
 }
@@ -325,7 +323,7 @@
 
 - (void) updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast
 {
-    [self.player.hero updateWithTimeSinceLastUpdate:timeSinceLast];
+    [self.hero updateWithTimeSinceLastUpdate:timeSinceLast];
     [self.levelBoss updateWithTimeSinceLastUpdate:timeSinceLast];
     for (MKCave *cave in self.goblinCaves)
     {
@@ -338,9 +336,9 @@
     [super didSimulatePhysics];
     
     CGPoint position = CGPointZero;
-    if (self.player.hero)
+    if (self.hero)
     {
-        position = self.player.hero.position;
+        position = self.hero.position;
     } else
     {
         position = self.defaultSpawnPoint;
@@ -351,22 +349,6 @@
         if (MKDistanceBetweenPoints(tree.position, position) < 1024)
         {
             [tree updateAlphaWithScene:self];
-        }
-    }
-    if (!self.worldMovedForUpdate)
-    {
-        return;
-    }
-    for (SKEmitterNode *particles in self.particleSystem)
-    {
-        BOOL particlesAreVisible = MKDistanceBetweenPoints(particles.position,
-                                                           position) < 1024;
-        if (!particlesAreVisible && !particles.paused)
-        {
-            particles.paused = YES;
-        } else if (particlesAreVisible && particles.paused)
-        {
-            particles.paused = NO;
         }
     }
 }

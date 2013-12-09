@@ -18,6 +18,25 @@
 
 #pragma mark - Initialization
 
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        _livesLeft = kStartLives;
+        
+        if ((arc4random_uniform(2)) == 0)
+        {
+            _heroClass = NSClassFromString(@"MKWarrior");
+        } else
+        {
+            _heroClass = NSClassFromString(@"MKArcher");
+        }
+    }
+    return self;
+}
+
+
 - (id) initAtPosition:(CGPoint)position
 {
     return [self initWithTexture:nil
@@ -30,7 +49,6 @@
                        atPosition:position];
     if (self)
     {
-        _player = [self characterScene].player;
         self.zRotation = M_PI;
         self.zPosition = -0.25;
         self.name = [NSString stringWithFormat:@"Hero"];
@@ -84,8 +102,6 @@
     [projectile runAction:[SKAction moveByX:-sinf(rot) * kHeroProjectileSpeed * kHeroProjectileLifeTime
                                           y:cosf(rot) * kHeroProjectileLifeTime * kHeroProjectileSpeed
                                    duration:kHeroProjectileLifeTime]];
-    projectile.userData = [NSMutableDictionary dictionaryWithObject:self.player
-                                                             forKey:kPlayer];
 }
 
 - (SKSpriteNode *)projectile

@@ -9,7 +9,6 @@
 #import "MKTree.h"
 #import "MKUtilites.h"
 #import "MKCharacterScene.h"
-#import "MKPlayer.h"
 #import "MKHeroCharacter.h"
 
 @implementation MKTree
@@ -56,7 +55,7 @@
     
     CGFloat closestHeroDistance = MAXFLOAT;
     
-    CGFloat distance = MKDistanceBetweenPoints(self.position, scene.player.hero.position);
+    CGFloat distance = MKDistanceBetweenPoints(self.position, scene.hero.position);
     if (distance < closestHeroDistance)
     {
         closestHeroDistance = distance;
