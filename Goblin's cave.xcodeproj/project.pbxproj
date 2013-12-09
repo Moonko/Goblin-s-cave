@@ -93,7 +93,6 @@
 		CFBB22CB1841E4AE006B9DD5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFBB22A61841E4AD006B9DD5 /* UIKit.framework */; };
 		CFBB22D31841E4AE006B9DD5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CFBB22D11841E4AE006B9DD5 /* InfoPlist.strings */; };
 		CFBB22D51841E4AE006B9DD5 /* Goblin_s_caveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CFBB22D41841E4AE006B9DD5 /* Goblin_s_caveTests.m */; };
-		CFD3E489184349080004C78F /* MKPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CFD3E488184349080004C78F /* MKPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,8 +212,6 @@
 		CFBB22D01841E4AE006B9DD5 /* Goblin's caveTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Goblin's caveTests-Info.plist"; sourceTree = "<group>"; };
 		CFBB22D21841E4AE006B9DD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CFBB22D41841E4AE006B9DD5 /* Goblin_s_caveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Goblin_s_caveTests.m; sourceTree = "<group>"; };
-		CFD3E487184349080004C78F /* MKPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKPlayer.h; sourceTree = "<group>"; };
-		CFD3E488184349080004C78F /* MKPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -496,8 +493,6 @@
 			children = (
 				CFAF95D7184228FC0016C602 /* MKCharacterScene.h */,
 				CFAF95D8184228FC0016C602 /* MKCharacterScene.m */,
-				CFD3E487184349080004C78F /* MKPlayer.h */,
-				CFD3E488184349080004C78F /* MKPlayer.m */,
 				CFAF95E0184239270016C602 /* MKGameScene.h */,
 				CFAF95E1184239270016C602 /* MKGameScene.m */,
 			);
@@ -686,7 +681,6 @@
 				CF9543FD1844AF2400B6ECC0 /* MKCave.m in Sources */,
 				CF9543E51843BE7400B6ECC0 /* MKArtificialIntelligence.m in Sources */,
 				CF9543FA1844AF1C00B6ECC0 /* MKGoblin.m in Sources */,
-				CFD3E489184349080004C78F /* MKPlayer.m in Sources */,
 				CFAF95D9184228FC0016C602 /* MKCharacterScene.m in Sources */,
 				CFAF95D6184228D00016C602 /* MKTree.m in Sources */,
 			);
