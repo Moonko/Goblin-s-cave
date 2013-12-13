@@ -24,7 +24,8 @@
     _projectile.name = @"Projectile";
     _projectile.physicsBody.categoryBitMask = MKColliderTypeProjectile;
     _projectile.physicsBody.collisionBitMask = MKColliderTypeWall;
-    _projectile.physicsBody.contactTestBitMask = _projectile.physicsBody.collisionBitMask;
+    _projectile.physicsBody.contactTestBitMask =
+    _projectile.physicsBody.collisionBitMask;
     
     return [super initWithTexture:texture
                        atPosition:position];

@@ -221,8 +221,12 @@
         return;
     }
     
-    object.position = CGPointMake(self.position.x + self.size.width,
-                                  self.position.y + self.size.height);
+    CGFloat rot = MK_POLAR_ADJUST(self.zRotation);
+    CGFloat offset = kCaveCollisionRadius * 0.75f;
+    
+    object.position = MKPointByAddingCGPoints(self.position,
+                                              CGPointMake(cosf(rot)*offset,
+                                                          sinf(rot)*offset));
     
     MKCharacterScene *scene = [self characterScene];
     [object addToScene:scene];
@@ -270,22 +274,8 @@ static int sGlobalAllocation = 0;
     dispatch_once(&onceToken, ^{
         SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Environment"];
         
-        SKEmitterNode *fire = [SKEmitterNode mk_emitterNodeWithEmitterNamed:@"CaveFire"];
-        fire.zPosition = 1;
-        
-        SKEmitterNode *smoke = [SKEmitterNode mk_emitterNodeWithEmitterNamed:@"CaveFireSmoke"];
-        
-        SKNode *torch = [[SKNode alloc] init];
-        [torch addChild:fire];
-        [torch addChild:smoke];
         
         sSharedCaveBase = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"cave_base.png"]];
-        
-        torch.position = CGPointMake(83, 83);
-        [sSharedCaveBase addChild:torch];
-        SKNode *torchB = [torch copy];
-        torchB.position = CGPointMake(-83, 83);
-        [sSharedCaveBase addChild:torchB];
         
         sSharedDeathSplort = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"cave_destroyed.png"]];
         

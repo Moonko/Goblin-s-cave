@@ -43,6 +43,8 @@
         }
         
         [self addChild:_world];
+        
+        self.hero.health = 100.0f;
     
         [self buildHUD];
     }
@@ -52,18 +54,11 @@
 
 - (MKHeroCharacter *)addhero
 {
-    if (_hero)
-    {
-        [_hero removeFromParent];
-    }
-    
-    CGPoint spawnPos = self.defaultSpawnPoint;
-    
-    _hero = [[self.hero.heroClass alloc] initAtPosition:spawnPos];
+    _hero = [[self.hero.heroClass alloc] initAtPosition:self.defaultSpawnPoint];
     if (_hero)
     {
         SKEmitterNode *emitter = [[self sharedSpawnEmitter] copy];
-        emitter.position = spawnPos;
+        emitter.position = self.defaultSpawnPoint;
         [self addNode:emitter
           atWorlLayer:MKWorldLayerAboveCharacter];
         MKRunOneShotEmitter(emitter, 0.15f);
@@ -75,16 +70,31 @@
     return _hero;
 }
 
+- (void)respawn
+{
+    SKEmitterNode *emitter = [[self sharedSpawnEmitter] copy];
+    emitter.position = self.defaultSpawnPoint;
+    [self addNode:emitter
+      atWorlLayer:MKWorldLayerAboveCharacter];
+    MKRunOneShotEmitter(emitter, 0.15f);
+    
+    [self centerWorldOnPosition:self.defaultSpawnPoint];
+    _hero.position = self.defaultSpawnPoint;
+    [_hero fadeIn:2.0f];
+}
+
 - (void)heroWasKilled
 {
     _hero.moveRequested = NO;
     
     if (--_hero.livesLeft < 1)
     {
+        NSLog(@"Score: %d", _hero.score);
         return;
     }
-    [self addhero];
-    [self centerWorldOnCharacter];
+    NSLog(@"lives: %d", _hero.livesLeft);
+    _hero.health = 100.0f;
+    [self respawn];
 }
 
 - (void)addNode:(SKNode *)node atWorlLayer:(MKWorldLayer)layer
@@ -121,6 +131,7 @@
         heart.position = CGPointMake(avatar.position.x + avatar.size.width + (10 + heart.size.width) * i,
                                      avatar.position.y + avatar.size.height / 2 - 10);
         heart.alpha = 0.1;
+        heart.name = [NSString stringWithFormat:@"heart_%d", i + 1];
         [hud addChild:heart];
     }
     
@@ -169,6 +180,14 @@
     CFTimeInterval timeSinceLast = currentTime - self.lastTimeUpdateInterval;
     _hero.timeSinceLastAttack += timeSinceLast;
     self.lastTimeUpdateInterval = currentTime;
+    
+    if (_hero.health <= 0.0f)
+    {
+        [[self childNodeWithName:[NSString stringWithFormat:
+                                  @"heart%d", _hero.livesLeft]] removeFromParent];
+        [self heroWasKilled];
+    }
+    
     if (timeSinceLast > 1)
     {
         timeSinceLast = kMinTimeInterval;

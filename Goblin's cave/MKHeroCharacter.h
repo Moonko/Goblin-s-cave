@@ -8,8 +8,6 @@
 
 #import "MKEnemyCharacter.h"
 
-#define kStartLives 3
-
 @interface MKHeroCharacter : MKCharacter
 
 @property (nonatomic) Class heroClass;

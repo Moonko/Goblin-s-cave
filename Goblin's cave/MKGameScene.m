@@ -108,7 +108,6 @@
             {
                 
                 self.defaultSpawnPoint = worldPoint;
-                self.hero.position = self.defaultSpawnPoint;
             }
         }
     }

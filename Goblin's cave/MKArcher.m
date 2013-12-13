@@ -18,13 +18,14 @@
 {
     SKTexture *texture = [SKTexture textureWithImageNamed:@"archer_idle_0001.png"];
     
-    _projectile = [SKSpriteNode spriteNodeWithColor:[SKColor whiteColor]
-                                               size:CGSizeMake(2.0, 24.0)];
+    _projectile = [SKSpriteNode spriteNodeWithImageNamed:@"arrow.png"];
+    _projectile.scale = 0.3;
     _projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:kProjectileCollisionRadius];
     _projectile.name = @"Projectile";
     _projectile.physicsBody.categoryBitMask = MKColliderTypeProjectile;
     _projectile.physicsBody.collisionBitMask = MKColliderTypeWall;
-    _projectile.physicsBody.contactTestBitMask = _projectile.physicsBody.collisionBitMask;
+    _projectile.physicsBody.contactTestBitMask =
+    _projectile.physicsBody.collisionBitMask;
 
     return [super initWithTexture:texture
                        atPosition:position];

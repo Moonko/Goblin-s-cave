@@ -19,6 +19,15 @@
     {
         _character = character;
         _target = target;
+        
+        SKTextureAtlas *explosionAtlas = [SKTextureAtlas atlasNamed:@"EXPLOSION"];
+        NSArray *textureNames = [explosionAtlas textureNames];
+        _explosionTextures = [NSMutableArray new];
+        for (NSString *name in textureNames)
+        {
+            SKTexture *texture = [explosionAtlas textureNamed:name];
+            [_explosionTextures addObject:texture];
+        }
     }
     return self;
 }

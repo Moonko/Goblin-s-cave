@@ -63,7 +63,28 @@
     } else if (closestHeroDistance < chaseRadius)
     {
         [self.character faceTo:heroPosition];
-        [self.character performAttackAction];
+        self.character.timeSinceLastAttack += interval;
+        
+        if (self.character.timeSinceLastAttack >= 1.0)
+        {
+            [target collideWith:self.character.physicsBody];
+            MKCharacterScene *scene = [self.character characterScene];
+            SKSpriteNode *explosion = [SKSpriteNode
+                                       spriteNodeWithTexture:[self.explosionTextures
+                                                              objectAtIndex:0]];
+            explosion.scale = 0.2;
+            CGFloat rot = MK_POLAR_ADJUST(self.character.zRotation);
+            explosion.position = MKPointByAddingCGPoints(self.character.position,
+                                                      CGPointMake(cosf(rot) * 50,
+                                                                  sinf(rot) * 50));
+            [scene addNode:explosion
+               atWorlLayer:MKWorldLayerAboveCharacter];
+            SKAction *explosionAction = [SKAction animateWithTextures:self.explosionTextures
+                                                         timePerFrame:0.07];
+            SKAction *remove = [SKAction removeFromParent];
+            [explosion runAction:[SKAction sequence:@[explosionAction, remove]]];
+            self.character.timeSinceLastAttack = 0.0;
+        }
     }
 }
 

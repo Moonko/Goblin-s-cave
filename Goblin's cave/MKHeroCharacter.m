@@ -23,7 +23,7 @@
     self = [super init];
     if (self)
     {
-        _livesLeft = kStartLives;
+        _livesLeft = 3;
         
         if ((arc4random_uniform(2)) == 0)
         {
