@@ -46,8 +46,8 @@
     cave.timeUntilNextGenerate -= interval;
     
     NSUInteger goblinCount = [cave.activeGoblins count];
-    if (goblinCount < 1 || cave.timeUntilNextGenerate <= 0.0f ||
-        (distScale < 0.35f && cave.timeUntilNextGenerate > 5.0f))
+    if (goblinCount < 1 ||
+        (goblinCount < 4 && !CGPointEqualToPoint(closestHeroPosition, CGPointZero)))
     {
         if (goblinCount < 1 || (goblinCount < 4 &&
                                 !CGPointEqualToPoint(closestHeroPosition, CGPointZero)))

@@ -33,6 +33,7 @@
             _heroClass = NSClassFromString(@"MKArcher");
         }
     }
+    self.timeSinceLastAttack = 0;
     return self;
 }
 
@@ -72,36 +73,44 @@
 {
     if (other.categoryBitMask & MKColliderTypeGoblinOrBoss)
     {
-        MKCharacter *enemy = (MKCharacter *)other.node;
-        if (!enemy.dying)
-        {
-            [self applyDamage:5.0f];
-        }
+        [self applyDamage:5.0f];
     }
+}
+
+- (void) performAttackAction
+{
+    [self faceTo:_targetLocation];
+    if (self.timeSinceLastAttack <= 0.2)
+    {
+        return;
+    }else
+    {
+        [self fireProjectile];
+        self.timeSinceLastAttack = 0.0;
+    };
 }
 
 #pragma mark - Projectiles
 
 - (void) fireProjectile
 {
-    MKCharacterScene *scene = [self characterScene];
-    
     SKSpriteNode *projectile = [[self projectile] copy];
+    
     projectile.position = self.position;
     projectile.zRotation = self.zRotation;
-    
-    SKEmitterNode *emitter = [[self projectileEmitter] copy];
-    emitter.targetNode = [self.scene childNodeWithName:@"world"];
-    [projectile addChild:emitter];
-    
-    [scene addNode:projectile
+   
+    [self.characterScene addNode:projectile
        atWorlLayer:MKWorldLayerCharacter];
     
-    CGFloat rot = self.zRotation;
+     CGFloat rot = self.zRotation;
     
     [projectile runAction:[SKAction moveByX:-sinf(rot) * kHeroProjectileSpeed * kHeroProjectileLifeTime
-                                          y:cosf(rot) * kHeroProjectileLifeTime * kHeroProjectileSpeed
-                                   duration:kHeroProjectileLifeTime]];
+                                               y:cosf(rot) * kHeroProjectileLifeTime * kHeroProjectileSpeed
+                                        duration:kHeroProjectileLifeTime]];
+    [projectile runAction:[SKAction sequence:
+  @[[SKAction waitForDuration:kHeroProjectileFadeOutTime],
+    [SKAction fadeOutWithDuration:kHeroProjectileLifeTime - kHeroProjectileFadeOutTime],
+    [SKAction removeFromParent]]]];
 }
 
 - (SKSpriteNode *)projectile

@@ -27,8 +27,6 @@
         self.zPosition = 1.0f / 35.0f;
         self.name = @"Boss";
         
-        self.attacking = NO;
-        
         MKChaseAI *intelligence = [[MKChaseAI alloc] initWithCharacter:self
                                                                 target:nil];
         intelligence.chaseRadius = kBossChaseRadius;
@@ -48,13 +46,8 @@
     self.physicsBody.contactTestBitMask = MKColliderTypeProjectile;
 }
 
-- (void)collidedWith:(SKPhysicsBody *)other
+- (void)collideWith:(SKPhysicsBody *)other
 {
-    if (self.dying)
-    {
-        return;
-    }
-    
     if (other.categoryBitMask & MKColliderTypeProjectile)
     {
         CGFloat damage = 2.0f;
@@ -63,6 +56,7 @@
         if (killed)
         {
             [[self characterScene] addToScore:100];
+            [self removeFromParent];
         }
     }
 }

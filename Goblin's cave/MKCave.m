@@ -158,7 +158,7 @@
                                                       [SKAction runBlock:^{
         [self.smokeEmitter setParticleBirthRate:0.0f];
     }],
-                                                      [SKAction waitForDuration:10.0f],
+                                                      [SKAction waitForDuration:5.0f],
                                                       [SKAction fadeAlphaTo:0.0f duration:0.5f],
                                                       [SKAction removeFromParent],
                                                       ]]];
@@ -220,6 +220,9 @@
     {
         return;
     }
+    
+    object.position = CGPointMake(self.position.x + self.size.width,
+                                  self.position.y + self.size.height);
     
     MKCharacterScene *scene = [self characterScene];
     [object addToScene:scene];

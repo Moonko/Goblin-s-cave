@@ -59,8 +59,6 @@
 - (void)reset
 {
     self.health = 100.0f;
-    self.dying = NO;
-    self.attacking = NO;
     self.shadowBlob.alpha = 1.0f;
 }
 
@@ -71,15 +69,6 @@
     // Overriden;
 }
 
-- (void)performAttackAction
-{
-    if (self.attacking)
-    {
-        return;
-    }
-    self.attacking = YES;
-}
-
 - (void) collideWith:(SKPhysicsBody *)other
 {
     // Overriden
@@ -88,7 +77,11 @@
 - (void)performDeath
 {
     self.health = 0.0f;
-    self.dying = YES;
+}
+
+- (void)performAttackAction
+{
+
 }
 
 #pragma mark - Damage

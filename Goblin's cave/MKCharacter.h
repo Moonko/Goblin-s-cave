@@ -29,10 +29,10 @@ typedef enum : uint8_t
 
 @interface MKCharacter : SKSpriteNode
 
-@property (nonatomic, getter = isDying) BOOL dying;
-@property (nonatomic, getter = isAttacking) BOOL attacking;
 @property (nonatomic) CGFloat health;
 @property (nonatomic) CGFloat movementSpeed;
+
+@property (nonatomic) CGFloat timeSinceLastAttack;
 
 + (void) loadSharedAssets;
 

@@ -32,12 +32,6 @@
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)interval
 {
-    if (self.character.dying)
-    {
-        self.target = nil;
-        return;
-    }
-    
     CGPoint position = self.character.position;
     
     MKCharacterScene *scene = [self.character characterScene];
@@ -45,7 +39,7 @@
     CGFloat closestHeroDistance = MAXFLOAT;
     
     CGFloat distance = MKDistanceBetweenPoints(position, scene.hero.position);
-    if (distance < kEnemyAlertRadius && distance < closestHeroDistance && !scene.hero.dying)
+    if (distance < kEnemyAlertRadius && distance < closestHeroDistance)
     {
         closestHeroDistance = distance;
         self.target = scene.hero;

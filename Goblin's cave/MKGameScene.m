@@ -108,6 +108,7 @@
             {
                 
                 self.defaultSpawnPoint = worldPoint;
+                self.hero.position = self.defaultSpawnPoint;
             }
         }
     }
@@ -355,15 +356,14 @@
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
-    SKNode *node = contact.bodyA.node;
-    if ([node isKindOfClass:[MKCharacter class]])
+    if ([contact.bodyA.node isKindOfClass:[MKCharacter class]])
     {
-        [(MKCharacter *)node collideWith:contact.bodyB];
+        [(MKCharacter *)contact.bodyA.node collideWith:contact.bodyB];
     }
     
-    node = contact.bodyB.node;
-    if ([node isKindOfClass:[MKCharacter class]]) {
-        [(MKCharacter *)node collideWith:contact.bodyA];
+    if ([contact.bodyB.node isKindOfClass:[MKCharacter class]])
+    {
+        [(MKCharacter *)contact.bodyB.node collideWith:contact.bodyA];
     }
     
     if (contact.bodyA.categoryBitMask & MKColliderTypeProjectile ||
@@ -419,6 +419,32 @@
     return MAXFLOAT;
 }
 
+- (BOOL) canSee:(CGPoint)pos0 from:(CGPoint)pos1
+{
+    CGPoint a = [self convertWorldPointToLevelMapPoint:pos0];
+    CGPoint b = [self convertWorldPointToLevelMapPoint:pos1];
+    
+    CGFloat deltaX = b.x - a.x;
+    CGFloat deltaY = b.y - a.y;
+    CGFloat dist = MKDistanceBetweenPoints(a, b);
+    CGFloat inc = 1.0 / dist;
+    CGPoint p = CGPointZero;
+    
+    for (CGFloat i = 0; i <= 1; i += inc)
+    {
+        p.x = a.x + i * deltaX;
+        p.y = a.y + i * deltaY;
+        
+        MKDataMap point = [self queryLevelMap:p];
+        if (point.wall > 200)
+        {
+            return NO;
+        }
+    }
+    return YES;
+
+}
+
 #pragma mark - Point conversion
 
 - (CGPoint) convertLevelMapPointToWorldPoint:(CGPoint)location
@@ -461,8 +487,6 @@
     [self loadWorldTiles];
   
     [MKCave loadSharedAssets];
-    [MKArcher loadSharedAssets];
-    [MKWarrior loadSharedAssets];
     [MKGoblin loadSharedAssets];
     [MKBoss loadSharedAssets];
 }

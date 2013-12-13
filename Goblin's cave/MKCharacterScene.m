@@ -15,6 +15,7 @@
 @property (nonatomic) NSTimeInterval lastTimeUpdateInterval;
 @property (nonatomic) NSMutableArray *nodes;
 @property (nonatomic) NSMutableArray *layers;
+@property (nonatomic) SKLabelNode *score;
 
 @end
 
@@ -30,6 +31,7 @@
         _hero = [[MKHeroCharacter alloc] init];
         
         _world = [[SKNode alloc] init];
+        [_world setName:@"world"];
         
         _layers = [NSMutableArray arrayWithCapacity:kWorldLayerCount];
         for (int i = 0; i < kWorldLayerCount; i++)
@@ -50,7 +52,7 @@
 
 - (MKHeroCharacter *)addhero
 {
-    if (_hero && !_hero.dying)
+    if (_hero)
     {
         [_hero removeFromParent];
     }
@@ -103,11 +105,13 @@
                                   self.frame.size.height - 10 - avatar.size.height);
     [hud addChild:avatar];
     
-    SKLabelNode *score = [SKLabelNode labelNodeWithFontNamed:@"Copperplate"];
-    score.text = @"Score : 0";
-    score.fontSize = 16;
-    score.position = CGPointMake(avatar.position.x + avatar.size.width + 40, avatar.position.y + 20);
-    [hud addChild:score];
+    _score = [SKLabelNode labelNodeWithFontNamed:@"Copperplate"];
+    [_score setName:@"Score"];
+    _score.text = @"Score : 0";
+    _score.fontSize = 16;
+    
+    _score.position = CGPointMake(avatar.position.x + avatar.size.width + 40, avatar.position.y + 20);
+    [hud addChild:_score];
     
     for (int i = 0; i < 3; ++i)
     {
@@ -121,6 +125,11 @@
     }
     
     [self addChild:hud];
+}
+
+- (void)updateHUD
+{
+    _score.text = [NSString stringWithFormat:@"Score: %d", _hero.score];
 }
 
 #pragma mark - Mapping
@@ -148,11 +157,17 @@
     self.hero.score += amount;
 }
 
+- (BOOL)canSee:(CGPoint)pos0 from:(CGPoint)pos1
+{
+    return NO;
+}
+
 #pragma mark - Loop update
 
 - (void) update:(NSTimeInterval)currentTime
 {
     CFTimeInterval timeSinceLast = currentTime - self.lastTimeUpdateInterval;
+    _hero.timeSinceLastAttack += timeSinceLast;
     self.lastTimeUpdateInterval = currentTime;
     if (timeSinceLast > 1)
     {
@@ -160,37 +175,23 @@
         self.lastTimeUpdateInterval = currentTime;
     }
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
-
-    if (![_hero isDying])
-    {
-        if (!CGPointEqualToPoint(_hero.targetLocation, CGPointZero))
-        {
-            if (_hero.fireAction)
-            {
-                [_hero faceTo:_hero.targetLocation];
-            }
-            if (_hero.moveRequested)
-            {
-                if (!CGPointEqualToPoint(_hero.targetLocation, _hero.position))
-                {
-                    [_hero moveTowards:_hero.targetLocation
-                             withTimeInterval:timeSinceLast];
-                } else
-                {
-                    _hero.moveRequested = NO;
-                }
-            }
-        }
-    }
-    
-    if (!_hero || [_hero isDying])
-    {
-        return;
-    }
     if (_hero.fireAction)
     {
         [_hero performAttackAction];
+        _hero.fireAction = NO;
     }
+    if (_hero.moveRequested)
+    {
+        if (!CGPointEqualToPoint(_hero.targetLocation, _hero.position))
+        {
+            [_hero moveTowards:_hero.targetLocation
+              withTimeInterval:timeSinceLast];
+        } else
+        {
+            _hero.moveRequested = NO;
+        }
+    }
+    [self updateHUD];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(NSTimeInterval)timeSinceLast

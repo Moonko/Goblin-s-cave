@@ -62,17 +62,13 @@
     [self configurePhysicsBody];
 }
 
-- (void)collidedWith:(SKPhysicsBody *)other
+- (void)collideWith:(SKPhysicsBody *)other
 {
-    if (self.dying)
-    {
-        return;
-    }
-    
     if (other.categoryBitMask & MKColliderTypeProjectile)
     {
         CGFloat damage = 100.0f;
-        if ((arc4random_uniform(2)) == 0) {
+        if ((arc4random_uniform(2)) == 0)
+        {
             damage = 50.0f;
         }
         
@@ -80,6 +76,8 @@
         if (killed)
         {
             [[self characterScene] addToScore:10];
+            [self removeFromParent];
+            [self.cave recycle:self];
         }
     }
 }
@@ -102,7 +100,7 @@
     self.physicsBody.collisionBitMask = 0;
     self.physicsBody.contactTestBitMask = 0;
     self.physicsBody.categoryBitMask = 0;
-    self.physicsBody = nil;
+    self.physicsBody = nil;    
 }
 
 #pragma mark - Shared assets

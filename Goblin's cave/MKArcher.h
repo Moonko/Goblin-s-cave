@@ -10,6 +10,8 @@
 
 @interface MKArcher : MKHeroCharacter
 
+@property (nonatomic) SKSpriteNode *projectile;
+
 - (id) initAtPosition:(CGPoint)position;
 
 @end
