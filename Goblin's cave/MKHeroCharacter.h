@@ -16,7 +16,6 @@
 
 @property (nonatomic) CGPoint heroMoveDirection;
 
-@property (nonatomic) uint8_t livesLeft;
 @property (nonatomic) uint32_t score;
 
 @property (nonatomic) UITouch *movementTouch;

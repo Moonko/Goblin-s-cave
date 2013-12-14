@@ -16,6 +16,8 @@
 @property (nonatomic) NSMutableArray *nodes;
 @property (nonatomic) NSMutableArray *layers;
 @property (nonatomic) SKLabelNode *score;
+@property (nonatomic) SKNode *hud;
+@property (nonatomic) int heroLives;
 
 @end
 
@@ -44,7 +46,8 @@
         
         [self addChild:_world];
         
-        self.hero.health = 100.0f;
+        _hero.health = 100.0f;
+        _heroLives = 3;
     
         [self buildHUD];
     }
@@ -72,6 +75,8 @@
 
 - (void)respawn
 {
+    _hero.health = 100.0f;
+    
     SKEmitterNode *emitter = [[self sharedSpawnEmitter] copy];
     emitter.position = self.defaultSpawnPoint;
     [self addNode:emitter
@@ -87,13 +92,15 @@
 {
     _hero.moveRequested = NO;
     
-    if (--_hero.livesLeft < 1)
+    SKNode * heart = [_hud childNodeWithName:[NSString stringWithFormat:
+                                               @"heart_%d", --_heroLives]];
+    [heart removeFromParent];
+    
+    if (_heroLives < 1)
     {
         NSLog(@"Score: %d", _hero.score);
         return;
     }
-    NSLog(@"lives: %d", _hero.livesLeft);
-    _hero.health = 100.0f;
     [self respawn];
 }
 
@@ -105,7 +112,7 @@
 
 - (void)buildHUD
 {
-    SKNode *hud = [[SKNode alloc] init];
+    _hud = [[SKNode alloc] init];
     
     SKSpriteNode *avatar = [SKSpriteNode spriteNodeWithImageNamed:@"iconWarrior_red"];
     avatar.alpha = 0.5;
@@ -113,7 +120,7 @@
     avatar.anchorPoint = CGPointMake(0, 0);
     avatar.position = CGPointMake(10,
                                   self.frame.size.height - 10 - avatar.size.height);
-    [hud addChild:avatar];
+    [_hud addChild:avatar];
     
     _score = [SKLabelNode labelNodeWithFontNamed:@"Copperplate"];
     [_score setName:@"Score"];
@@ -121,7 +128,7 @@
     _score.fontSize = 16;
     
     _score.position = CGPointMake(avatar.position.x + avatar.size.width + 40, avatar.position.y + 20);
-    [hud addChild:_score];
+    [_hud addChild:_score];
     
     for (int i = 0; i < 3; ++i)
     {
@@ -131,11 +138,11 @@
         heart.position = CGPointMake(avatar.position.x + avatar.size.width + (10 + heart.size.width) * i,
                                      avatar.position.y + avatar.size.height / 2 - 10);
         heart.alpha = 0.1;
-        heart.name = [NSString stringWithFormat:@"heart_%d", i + 1];
-        [hud addChild:heart];
+        heart.name = [NSString stringWithFormat:@"heart_%d", i];
+        [_hud addChild:heart];
     }
     
-    [self addChild:hud];
+    [self addChild:_hud];
 }
 
 - (void)updateHUD
@@ -183,8 +190,6 @@
     
     if (_hero.health <= 0.0f)
     {
-        [[self childNodeWithName:[NSString stringWithFormat:
-                                  @"heart%d", _hero.livesLeft]] removeFromParent];
         [self heroWasKilled];
     }
     

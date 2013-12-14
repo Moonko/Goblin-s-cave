@@ -23,8 +23,6 @@
     self = [super init];
     if (self)
     {
-        _livesLeft = 3;
-        
         if ((arc4random_uniform(2)) == 0)
         {
             _heroClass = NSClassFromString(@"MKWarrior");
@@ -123,29 +121,4 @@
     return nil;
 }
 
-+ (void) loadSharedAssets
-{
-    [super loadSharedAssets];
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sSharedDeathEmitter = [SKEmitterNode mk_emitterNodeWithEmitterNamed:@"Death"];
-        sSharedDamageEmitter = [SKEmitterNode mk_emitterNodeWithEmitterNamed:@"Damage"];
-    });
-}
-
-static SKEmitterNode *sSharedDeathEmitter = nil;
-- (SKEmitterNode *)deathEmitter
-{
-    return sSharedDeathEmitter;
-}
-
-static SKEmitterNode *sSharedDamageEmitter = nil;
-- (SKEmitterNode *)damageEmitter
-{
-    return sSharedDamageEmitter;
-}
-
 @end
-
-NSString *const kPlayer = @"kPlayer";

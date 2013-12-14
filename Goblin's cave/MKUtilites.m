@@ -37,49 +37,40 @@ CGContextRef MKCreateARGBBitmapContext(CGImageRef inImage)
     int bitmapByteCount = 0;
     int bitmapBytesPerRow = 0;
     
-    // Get image width, height. We'll use the entire image.
     size_t pixelsWide = CGImageGetWidth(inImage);
     size_t pixelsHigh = CGImageGetHeight(inImage);
-    
-    // Declare the number of bytes per row. Each pixel in the bitmap in this
-    // example is represented by 4 bytes; 8 bits each of red, green, blue, and
-    // alpha.
+
     bitmapBytesPerRow = (int)(pixelsWide * 4);
     bitmapByteCount = (int)(bitmapBytesPerRow * pixelsHigh);
     
-    // Use the generic RGB color space.
     colorSpace = CGColorSpaceCreateDeviceRGB();
-    if (colorSpace == NULL) {
+    if (colorSpace == NULL)
+    {
         fprintf(stderr, "Error allocating color space\n");
         return NULL;
     }
     
-    // Allocate memory for image data. This is the destination in memory
-    // where any drawing to the bitmap context will be rendered.
     bitmapData = malloc(bitmapByteCount);
-    if (bitmapData == NULL) {
+    if (bitmapData == NULL)
+    {
         fprintf (stderr, "Memory not allocated!");
         CGColorSpaceRelease(colorSpace);
         return NULL;
     }
     
-    // Create the bitmap context. We want pre-multiplied ARGB, 8-bits
-    // per component. Regardless of what the source image format is
-    // (CMYK, Grayscale, and so on) it will be converted over to the format
-    // specified here by CGBitmapContextCreate.
     context = CGBitmapContextCreate(bitmapData,
                                     pixelsWide,
                                     pixelsHigh,
-                                    8,      // bits per component
+                                    8,
                                     bitmapBytesPerRow,
                                     colorSpace,
                                     (CGBitmapInfo)kCGImageAlphaPremultipliedFirst);
-    if (context == NULL) {
+    if (context == NULL)
+    {
         free (bitmapData);
         fprintf (stderr, "Context not created!");
     }
     
-    // When finished, release the colorspace before returning.
     CGColorSpaceRelease(colorSpace);
     
     return context;
@@ -90,27 +81,22 @@ CGContextRef MKCreateARGBBitmapContext(CGImageRef inImage)
 void* MKCreateDataMap(NSString *mapName)
 {
     CGImageRef inImage = MKGetCGImageNamed(mapName);
-    // Create the bitmap context.
+    
     CGContextRef cgctx = MKCreateARGBBitmapContext(inImage);
     
-    if (cgctx == NULL) {    // error creating context
+    if (cgctx == NULL)
+    {
         return NULL;
     }
     
-    // Get image width, height. We'll use the entire image.
     size_t w = CGImageGetWidth(inImage);
     size_t h = CGImageGetHeight(inImage);
     CGRect rect = {{0,0},{w,h}};
     
-    // Draw the image to the bitmap context. Once we draw, the memory
-    // allocated for the context for rendering will then contain the
-    // raw image data in the specified color space.
     CGContextDrawImage(cgctx, rect, inImage);
     
-    // Now we can get a pointer to the image data associated with the bitmap context.
     void *data = CGBitmapContextGetData(cgctx);
     
-    // When finished, release the context.
     CGContextRelease(cgctx);
     
     return data;

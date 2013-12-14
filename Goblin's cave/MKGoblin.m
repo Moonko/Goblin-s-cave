@@ -113,23 +113,7 @@
     dispatch_once(&onceToken, ^{
         SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Environment"];
         sSharedDeathSplort = [SKSpriteNode spriteNodeWithTexture:[atlas textureNamed:@"minionSplort.png"]];
-        sSharedDamageAction = [SKAction sequence:@[[SKAction colorizeWithColor:[SKColor whiteColor] colorBlendFactor:1.0 duration:0.0],
-                                                   [SKAction waitForDuration:0.75],
-                                                   [SKAction colorizeWithColorBlendFactor:0.0 duration:0.1]
-                                                   ]];
     });
-}
-
-static SKEmitterNode *sSharedDamageEmitter = nil;
-- (SKEmitterNode *)damageEmitter
-{
-    return sSharedDamageEmitter;
-}
-
-static SKAction *sSharedDamageAction = nil;
-- (SKAction *)damageAction
-{
-    return sSharedDamageAction;
 }
 
 static SKSpriteNode *sSharedDeathSplort = nil;

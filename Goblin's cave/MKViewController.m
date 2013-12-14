@@ -45,8 +45,8 @@
          
          [self.skView presentScene:scene];
          
-         self.skView.showsFPS = YES;
-         self.skView.showsNodeCount = YES;
+         //self.skView.showsFPS = YES;
+         //self.skView.showsNodeCount = YES;
          [UIView animateWithDuration:2.0
                                delay:0.0
                              options:UIViewAnimationOptionCurveEaseInOut
